@@ -1,0 +1,10 @@
+{
+  "name": "3DLightsOut-Editor",
+  "references": [
+    "3DLightsOut"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": []
+}
