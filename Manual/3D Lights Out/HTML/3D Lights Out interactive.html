@@ -8,71 +8,11 @@
     <link rel="stylesheet" type="text/css" href="css/font.css">
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/Modules/3D Lights Out.css">
     <script src="js/ktane-utils.js"></script>
     <script src="js/jquery.3.7.0.min.js"></script>
     <script src="js/Utilities/svg-utils.js"></script>
     <script src="js/Modules/3D Lights Out Interactive.js"></script>
-    <style>
-        .diagrams {
-            display: flex;
-            flex-flow: row wrap;
-            justify-content: center;
-            column-gap: 0.5in;
-        }
-
-        .diagrams svg {
-            width: 2in;
-        }
-
-        svg text {
-            font: 40px;
-            fill: black;
-        }
-
-        .dark svg text {
-            font: 12px;
-            fill: white;
-        }
-
-        svg rect.green {
-            stroke:#1a1a1a;
-            fill:#9bff01;
-            stroke-width:.75px
-        }
-
-        svg rect.black {
-            stroke: #111;
-            fill:#1a1a1a;
-            stroke-width:.75px
-        }
-
-        .dark svg rect.black {
-            stroke: #DDD;
-            fill:#1a1a1a;
-            stroke-width:.75px
-        }
-
-        .dark svg rect.green {
-            stroke: #DDD;
-            fill:#9bff01;
-            stroke-width:.75px
-        }
-
-        svg circle.white {
-            fill:#fff;
-            stroke:none
-        }
-
-        svg circle.black {
-            fill:#000;
-            stroke:none
-        }
-
-        svg circle.off {
-            fill:none;
-            stroke:none
-        }
-    </style>
 </head>
 
 <body>
@@ -94,6 +34,13 @@
                 <ul>
                     <li>The green cells represent lit lights, and the dots represent the lights that will be toggled when the currently selected light is toggled.</li>
                 </ul>
+                <div class="interactive-container">
+                    <div class="buttons">
+                        <button class="reset">Reset</button>
+                        <button class="shuffle">Shuffle</button>
+                        <button class="toggle-dots">Toggle Dots</button>
+                    </div>
+                </div>
                 <div class="diagrams">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 94.088 94.088">
                         <g transform="translate(-21.957 -44.794)">
@@ -216,6 +163,12 @@
                         </g>
                     </svg>
                 </div>
+                <div class="interactive-container">
+                    <div class="buttons">
+                        <button class="toggle-individual">Toggle Individual</button>
+                    </div>
+                </div>
+                <p class="comment">Note: using the "Toggle Individual" button may create unsolvable board states.</p>
             </div>
             <div class="page-footer relative-footer">Page 1 of 1</div>
         </div>

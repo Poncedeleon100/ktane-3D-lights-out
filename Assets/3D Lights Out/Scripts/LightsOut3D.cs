@@ -22,6 +22,7 @@ public sealed class LightsOut3D : ModdedModule
     private GameObject[,,] buttonsGrid = new GameObject[3, 3, 3];
     // Stores the current solution to solve the board state at any point
     List<string> optimalSolution = new List<string>();
+    private int movesCount = 0;
 
     protected override void OnActivate()
     {
@@ -32,6 +33,7 @@ public sealed class LightsOut3D : ModdedModule
             button.GetComponentInChildren<KMSelectable>().OnInteract += delegate ()
             {
                 ButtonInteract(button);
+                movesCount++;
                 return false;
             };
 
@@ -53,20 +55,11 @@ public sealed class LightsOut3D : ModdedModule
         }
 
         string[] boardLayout = buttonsActivated.Cast<bool>().Select(x => x ? "1" : "0").ToArray();
-        Log($"The initial board state is:");
-        Log("Top layer: " +
-            $"{String.Join("", boardLayout, 0, 3)}/" +
-            $"{String.Join("", boardLayout, 3, 3)}/" +
-            $"{String.Join("", boardLayout, 6, 3)}");
-        Log("Middle layer: " +
-            $"{String.Join("", boardLayout, 9, 3)}/" +
-            $"{String.Join("", boardLayout, 12, 3)}/" +
-            $"{String.Join("", boardLayout, 15, 3)}");
-        Log("Bottom layer: " +
-            $"{String.Join("", boardLayout, 18, 3)}/" +
-            $"{String.Join("", boardLayout, 21, 3)}/" +
-            $"{String.Join("", boardLayout, 24, 3)}");
+        Log($"The initial board state is, in the format \"T/M/B\" in left-right top-down reading order:");
+        Log($"{String.Join("", boardLayout, 0, 9)}/{String.Join("", boardLayout, 9, 9)}/" +
+            $"{String.Join("", boardLayout, 18, 9)}");
 
+        Log($"The most optimal solution for the initial board state has {optimalSolution.Count} move(s).");
         Log($"The most optimal solution for the initial board state is, in the format \"(xyz)\" where x is" +
             $" the layer from left-right, y is the row from top-bottom, and z is the column from left-right:");
 
@@ -76,7 +69,8 @@ public sealed class LightsOut3D : ModdedModule
     private void ButtonInteract(GameObject button)
     {
         int index = Array.IndexOf(Buttons, button);
-        Play(Sound.ButtonPress);
+        //Play(Sound.ButtonPress);
+        Shake(button.GetComponentInChildren<KMSelectable>(), .5f, Sound.ButtonPress);
         StartCoroutine(ButtonAnimation(button.transform, index));
         ToggleAdjacentButtons(button, ExpandTo3D(index, 0), ExpandTo3D(index, 1), ExpandTo3D(index, 2));
     }
@@ -131,7 +125,7 @@ public sealed class LightsOut3D : ModdedModule
         StartCoroutine(LightAnimation(button.transform.Find("LightQuad").transform, FlattenTo2D(x, y, z), buttonsActivated[x, y, z]));
         if (buttonsActivated.Cast<bool>().All(i => i == false))
         {
-            Solve("All lights were turned off. Module solved!");
+            Solve($"All lights were turned off in {movesCount} move(s). Module solved!");
         }
     }
 

@@ -14,14 +14,11 @@ MonoBehaviour:
   id: 3DLightsOut
   title: 3D Lights Out
   author: Moon
-  description: 'Now with three times as much Lights Out!
-
-
-    Turn all the lights out in a 3x3x3 cube where only several lights in a specific
-    pattern can be switched.
-
-
-    Original Lights Out module made by Bashly'
+  description: "Now with three times as much Lights Out!\r\n\r\nTurn all the lights
+    out in a 3x3x3 cube where only several lights in a specific pattern can be switched.\r\n\r\nIncludes
+    Twitch Plays and gamepad support.\r\n\r\nManual Link... doesn't exist yet, but
+    a PDF is included\r\n[url=https://github.com/Poncedeleon100/ktane-3D-lights-out]Source
+    Code[/url]\r\n\r\nOriginal Lights Out module assets made by Bashly"
   version: 1.0
   outputFolder: build
   debugBuild: 1
