@@ -23,6 +23,7 @@ public sealed class LightsOut3D : ModdedModule
     // Stores the current solution to solve the board state at any point
     List<string> optimalSolution = new List<string>();
     private int movesCount = 0;
+    private bool animating = false;
 
     protected override void OnActivate()
     {
@@ -32,8 +33,11 @@ public sealed class LightsOut3D : ModdedModule
         {
             button.GetComponentInChildren<KMSelectable>().OnInteract += delegate ()
             {
-                ButtonInteract(button);
-                movesCount++;
+                if (!animating)
+                {
+                    movesCount++;
+                    ButtonInteract(button);
+                }
                 return false;
             };
 
@@ -71,6 +75,7 @@ public sealed class LightsOut3D : ModdedModule
         int index = Array.IndexOf(Buttons, button);
         //Play(Sound.ButtonPress);
         Shake(button.GetComponentInChildren<KMSelectable>(), .5f, Sound.ButtonPress);
+        animating = true;
         StartCoroutine(ButtonAnimation(button.transform, index));
         ToggleAdjacentButtons(button, ExpandTo3D(index, 0), ExpandTo3D(index, 1), ExpandTo3D(index, 2));
     }
@@ -116,6 +121,13 @@ public sealed class LightsOut3D : ModdedModule
         {
             ToggleButton(buttonsGrid[x + 1, y, z], x + 1, y, z);
         }
+
+        Log($"Toggled button ({x}{y}{z}).");
+
+        if (!buttonsActivated.Cast<bool>().Contains(true))
+        {
+            Solve($"All lights were turned off in {movesCount} move(s). Module solved!");
+        }
     }
 
     private void ToggleButton(GameObject button, int x, int y, int z)
@@ -123,10 +135,6 @@ public sealed class LightsOut3D : ModdedModule
         buttonsActivated[x, y, z] = !buttonsActivated[x, y, z];
         button.GetComponent<Renderer>().material = ButtonMaterials[buttonsActivated[x, y, z] ? 1 : 0];
         StartCoroutine(LightAnimation(button.transform.Find("LightQuad").transform, FlattenTo2D(x, y, z), buttonsActivated[x, y, z]));
-        if (buttonsActivated.Cast<bool>().All(i => i == false))
-        {
-            Solve($"All lights were turned off in {movesCount} move(s). Module solved!");
-        }
     }
 
     private IEnumerator ButtonAnimation(Transform button, int index)
@@ -144,7 +152,6 @@ public sealed class LightsOut3D : ModdedModule
             yield return new WaitForSeconds(0.01f);
         }
         button.localPosition = defaultPosition;
-        
     }
 
     private IEnumerator LightAnimation(Transform light, int index, bool activated)
@@ -155,6 +162,7 @@ public sealed class LightsOut3D : ModdedModule
             yield return new WaitForSeconds(0.01f);
         }
         light.localScale = activated ? Vector3.one * 7 : Vector3.zero;
+        animating = false;
     }
 
     private int ExpandTo3D(int index, int dimension)

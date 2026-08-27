@@ -1,7 +1,11 @@
 # 3D Lights Out
 Turn all the lights out in a 3x3x3 cube where only several lights in a specific pattern can be switched.
 
+[Manual Link](https://ktane.timwi.de/HTML/3D%20Lights%20Out.html)
+[Interactive Link](https://ktane.timwi.de/HTML/3D%20Lights%20Out%20interactive.html)
 [Steam Workshop Page](https://steamcommunity.com/sharedfiles/filedetails/?id=3787462553)
+
+[Original Lights Out module by Bashly](https://steamcommunity.com/sharedfiles/filedetails/?id=3148002565)
 
 ***
 
