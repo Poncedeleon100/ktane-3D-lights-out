@@ -213,7 +213,7 @@ public sealed class LightsOut3D : ModdedModule
         for (int i = 0; i < commands.Length; i++)
         {
             buttonsGrid[int.Parse(commands[i][0].ToString()), int.Parse(commands[i][1].ToString()), int.Parse(commands[i][2].ToString())].GetComponentInChildren<KMSelectable>().OnInteract();
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(.2f);
         }
     }
 
@@ -225,7 +225,7 @@ public sealed class LightsOut3D : ModdedModule
         foreach (string command in finalCommands)
         {
             buttonsGrid[int.Parse(command[0].ToString()), int.Parse(command[1].ToString()), int.Parse(command[2].ToString())].GetComponentInChildren<KMSelectable>().OnInteract();
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }
