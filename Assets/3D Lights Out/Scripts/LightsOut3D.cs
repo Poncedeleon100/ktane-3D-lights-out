@@ -24,6 +24,7 @@ public sealed class LightsOut3D : ModdedModule
     List<string> optimalSolution = new List<string>();
     private int movesCount = 0;
     private bool animating = false;
+    private bool solving = false;
 
     protected override void OnActivate()
     {
@@ -68,6 +69,8 @@ public sealed class LightsOut3D : ModdedModule
             $" the layer from left-right, y is the row from top-bottom, and z is the column from left-right:");
 
         Log($"({optimalSolution.Join(") (")})");
+
+        solving = true;
     }
 
     private void ButtonInteract(GameObject button)
@@ -122,7 +125,10 @@ public sealed class LightsOut3D : ModdedModule
             ToggleButton(buttonsGrid[x + 1, y, z], x + 1, y, z);
         }
 
-        Log($"Toggled button ({x}{y}{z}).");
+        if (solving)
+        {
+            Log($"Toggled button ({x}{y}{z}).");
+        }
 
         if (!buttonsActivated.Cast<bool>().Contains(true))
         {
@@ -213,7 +219,7 @@ public sealed class LightsOut3D : ModdedModule
         for (int i = 0; i < commands.Length; i++)
         {
             buttonsGrid[int.Parse(commands[i][0].ToString()), int.Parse(commands[i][1].ToString()), int.Parse(commands[i][2].ToString())].GetComponentInChildren<KMSelectable>().OnInteract();
-            yield return new WaitForSeconds(.2f);
+            yield return new WaitForSeconds(0.3f);
         }
     }
 
@@ -225,7 +231,7 @@ public sealed class LightsOut3D : ModdedModule
         foreach (string command in finalCommands)
         {
             buttonsGrid[int.Parse(command[0].ToString()), int.Parse(command[1].ToString()), int.Parse(command[2].ToString())].GetComponentInChildren<KMSelectable>().OnInteract();
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.3f);
         }
     }
 }

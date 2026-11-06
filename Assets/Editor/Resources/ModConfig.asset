@@ -20,7 +20,7 @@ MonoBehaviour:
     Link[/url]\r\n[url=https://ktane.timwi.de/HTML/3D%20Lights%20Out%20interactive.html]Interactive
     Link[/url]\r\n[url=https://github.com/Poncedeleon100/ktane-3D-lights-out]Source
     Code[/url]\r\n\r\nOriginal Lights Out module assets made by Bashly"
-  version: 1.2
+  version: 1.3
   outputFolder: build
   debugBuild: 1
   previewImage: {fileID: 2800000, guid: e423d90d0eb1be24086fee5b48f04d76, type: 3}
